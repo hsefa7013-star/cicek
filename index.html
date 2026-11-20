@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Senin İçin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #c85a7c 0%, #9e3d5c 60%, #7d2c46 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .scene {
+      position: relative;
+      width: 420px;
+      height: 520px;
+      max-width: 92vw;
+      max-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .stem-group {
+      transform-origin: 210px 440px;
+      animation: growStem 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+    }
+
+    .bouquet-head {
+      transform-origin: 210px 230px;
+      animation: popBouquet 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards,
+                 gentleSway 4.5s ease-in-out 1.8s infinite;
+      opacity: 0;
+    }
+
+    .sparkle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: twinkle 2.6s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(even) {
+      animation-delay: 1.1s;
+    }
+
+    @keyframes growStem {
+      0% {
+        opacity: 0;
+        transform: scaleY(0.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes popBouquet {
+      0% {
+        opacity: 0;
+        transform: scale(0.35);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes gentleSway {
+      0%, 100% {
+        transform: rotate(-1.5deg);
+      }
+      50% {
+        transform: rotate(1.5deg);
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.25;
+        transform: scale(0.7);
+      }
+      50% {
+        opacity: 0.95;
+        transform: scale(1.2);
+      }
+    }
+
+    .caption {
+      margin-top: 8px;
+      font-size: 1.15rem;
+      letter-spacing: 0.4px;
+      opacity: 0;
+      animation: fadeInText 1.2s ease 1.2s forwards;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 0.95;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <svg viewBox="0 0 420 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#ffe9d6">
+        <circle class="sparkle" cx="105" cy="145" r="3" />
+        <circle class="sparkle" cx="315" cy="135" r="3.5" />
+        <circle class="sparkle" cx="88" cy="245" r="2.5" />
+        <circle class="sparkle" cx="330" cy="255" r="2.8" />
+        <circle class="sparkle" cx="140" cy="330" r="2.2" />
+        <circle class="sparkle" cx="285" cy="325" r="2.5" />
+      </g>
+
+      <g class="stem-group">
+        <path d="M196 270 L182 435 Q210 445 238 435 L224 270 Z" fill="#6d9b6e" />
+        <path d="M206 275 L202 438" stroke="#578258" stroke-width="3" stroke-linecap="round" />
+        <path d="M216 275 L220 438" stroke="#82b083" stroke-width="2.5" stroke-linecap="round" />
+
+        <path d="M202 325 L186 382 L198 376 L208 330 Z" fill="#f3d8c4" />
+        <path d="M218 325 L234 385 L221 378 L212 330 Z" fill="#e6c3ab" />
+
+        <ellipse cx="195" cy="322" rx="16" ry="9" transform="rotate(-18 195 322)" fill="#f7e2d2" />
+        <ellipse cx="225" cy="322" rx="16" ry="9" transform="rotate(18 225 322)" fill="#f7e2d2" />
+        <circle cx="210" cy="323" r="7" fill="#ebd0bc" />
+      </g>
+
+      <g class="bouquet-head" id="bouquet"></g>
+    </svg>
+  </div>
+
+  <div class="caption">Senin için kodlandı 🌷</div>
+
+  <script>
+    const bouquet = document.getElementById("bouquet");
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    function createEl(tag, attrs) {
+      const el = document.createElementNS(svgNS, tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        el.setAttribute(k, v);
+      }
+      return el;
+    }
+
+    const leafPositions = [
+      { x: 135, y: 215, rot: -45, s: 1.1 },
+      { x: 285, y: 215, rot: 45, s: 1.1 },
+      { x: 118, y: 165, rot: -65, s: 0.95 },
+      { x: 302, y: 165, rot: 65, s: 0.95 },
+      { x: 155, y: 115, rot: -30, s: 0.9 },
+      { x: 265, y: 115, rot: 30, s: 0.9 },
+      { x: 210, y: 95, rot: 0, s: 0.95 },
+      { x: 145, y: 265, rot: -55, s: 1.0 },
+      { x: 275, y: 265, rot: 55, s: 1.0 }
+    ];
+
+    leafPositions.forEach(({ x, y, rot, s }) => {
+      const leaf = createEl("path", {
+        d: "M0 0 C-14 -18, -14 -45, 0 -62 C14 -45, 14 -18, 0 0 Z",
+        fill: "#79a87a",
+        transform: `translate(${x}, ${y}) rotate(${rot}) scale(${s})`
+      });
+      bouquet.appendChild(leaf);
+    });
+
+    function drawFlower(cx, cy, radius, petalCount, mainColor, innerColor) {
+      const g = createEl("g", { transform: `translate(${cx}, ${cy})` });
+
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (360 / petalCount) * i;
+        const petal = createEl("ellipse", {
+          cx: 0,
+          cy: -radius * 0.55,
+          rx: radius * 0.45,
+          ry: radius * 0.62,
+          fill: mainColor,
+          transform: `rotate(${angle})`
+        });
+        g.appendChild(petal);
+      }
+
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (360 / petalCount) * i + 180 / petalCount;
+        const innerPetal = createEl("ellipse", {
+          cx: 0,
+          cy: -radius * 0.32,
+          rx: radius * 0.3,
+          ry: radius * 0.4,
+          fill: innerColor,
+          transform: `rotate(${angle})`
+        });
+        g.appendChild(innerPetal);
+      }
+
+      const center = createEl("circle", {
+        cx: 0,
+        cy: 0,
+        r: radius * 0.22,
+        fill: "#e8b896"
+      });
+      g.appendChild(center);
+
+      bouquet.appendChild(g);
+    }
+
+    const flowers = [
+      { cx: 165, cy: 135, r: 28, p: 6, c1: "#f7dfd0", c2: "#fff3ea" },
+      { cx: 255, cy: 135, r: 28, p: 6, c1: "#f7dfd0", c2: "#fff3ea" },
+      { cx: 210, cy: 120, r: 30, p: 6, c1: "#fce9dc", c2: "#ffffff" },
+      { cx: 132, cy: 185, r: 31, p: 6, c1: "#f5d7c4", c2: "#fff1e6" },
+      { cx: 288, cy: 185, r: 31, p: 6, c1: "#f5d7c4", c2: "#fff1e6" },
+      { cx: 210, cy: 175, r: 34, p: 7, c1: "#fceae0", c2: "#ffffff" },
+      { cx: 168, cy: 225, r: 33, p: 6, c1: "#f7dfd0", c2: "#fff4ec" },
+      { cx: 252, cy: 225, r: 33, p: 6, c1: "#f7dfd0", c2: "#fff4ec" },
+      { cx: 210, cy: 235, r: 36, p: 7, c1: "#fff0e6", c2: "#ffffff" }
+    ];
+
+    flowers.forEach(f => drawFlower(f.cx, f.cy, f.r, f.p, f.c1, f.c2));
+  </script>
+</body>
+</html>

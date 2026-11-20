@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Senin İçin 🌷</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #5e2743 0%, #331325 65%, #1d0915 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+
+    .scene {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      animation: popIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .bouquet-wrap {
+      width: 260px;
+      height: 310px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: bottom center;
+      animation: gentleSway 3.4s ease-in-out infinite;
+    }
+
+    .bouquet-wrap.boost {
+      animation: tapBounce 0.65s cubic-bezier(0.22, 1, 0.36, 1), gentleSway 3.4s ease-in-out 0.65s infinite;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.35));
+    }
+
+    .flower-head {
+      transform-box: fill-box;
+      transform-origin: bottom center;
+      animation: bloomPulse 2.8s ease-in-out infinite;
+    }
+
+    .flower-head.f2 { animation-delay: 0.25s; }
+    .flower-head.f3 { animation-delay: 0.5s; }
+    .flower-head.f4 { animation-delay: 0.75s; }
+    .flower-head.f5 { animation-delay: 1s; }
+
+    .sparkle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: twinkle 2.2s ease-in-out infinite;
+    }
+
+    .sparkle.s2 { animation-delay: 0.6s; }
+    .sparkle.s3 { animation-delay: 1.2s; }
+
+    .message {
+      font-size: clamp(1.35rem, 4.5vw, 1.85rem);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-align: center;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      letter-spacing: 0.2px;
+    }
+
+    .floating-item {
+      position: fixed;
+      pointer-events: none;
+      z-index: 3;
+      font-size: 1.4rem;
+      transform: translate(-50%, -50%) scale(0.5);
+      animation: floatUp 1.25s ease-out forwards;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.92);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes gentleSway {
+      0%, 100% {
+        transform: rotate(-2.2deg);
+      }
+      50% {
+        transform: rotate(2.2deg);
+      }
+    }
+
+    @keyframes tapBounce {
+      0% { transform: scale(1) rotate(0deg); }
+      35% { transform: scale(1.08) rotate(-3deg); }
+      70% { transform: scale(0.97) rotate(2.5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes bloomPulse {
+      0%, 100% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.05) rotate(2deg);
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.35;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.25);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% - 120px)) scale(1.25) rotate(var(--rot));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="bouquet-wrap" id="bouquet">
+      <svg viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pariltilar -->
+        <circle class="sparkle" cx="48" cy="78" r="4" fill="#ffe6f0" />
+        <circle class="sparkle s2" cx="212" cy="86" r="4.5" fill="#ffd6e7" />
+        <circle class="sparkle s3" cx="130" cy="34" r="3.5" fill="#fff0f6" />
+
+        <!-- Saplar -->
+        <g stroke="#2f855a" stroke-width="5" stroke-linecap="round" fill="none">
+          <path d="M130 215 Q128 145 130 85" />
+          <path d="M127 215 Q96 155 78 102" />
+          <path d="M133 215 Q164 155 182 102" />
+          <path d="M125 215 Q108 165 103 126" />
+          <path d="M135 215 Q152 165 157 126" />
+        </g>
+
+        <!-- Yapraklar -->
+        <path d="M98 165 Q68 148 64 176 Q86 184 98 165 Z" fill="#38a169" />
+        <path d="M162 165 Q192 148 196 176 Q174 184 162 165 Z" fill="#38a169" />
+
+        <!-- Sol Alt Lale -->
+        <g class="flower-head f2">
+          <path d="M78 66 C56 66, 54 102, 78 108 C102 102, 100 66, 78 66 Z" fill="#ff5c8a" />
+          <path d="M78 72 C67 76, 66 100, 78 108 C90 100, 89 76, 78 72 Z" fill="#ff85a1" />
+        </g>
+
+        <!-- Sag Alt Lale -->
+        <g class="flower-head f3">
+          <path d="M182 66 C160 66, 158 102, 182 108 C206 102, 204 66, 182 66 Z" fill="#ff5c8a" />
+          <path d="M182 72 C171 76, 170 100, 182 108 C194 100, 193 76, 182 72 Z" fill="#ff85a1" />
+        </g>
+
+        <!-- Sol Ic Lale -->
+        <g class="flower-head f4">
+          <path d="M103 88 C82 88, 80 124, 103 130 C126 124, 124 88, 103 88 Z" fill="#ff8fab" />
+          <path d="M103 94 C93 98, 92 122, 103 130 C114 122, 113 98, 103 94 Z" fill="#ffb3c6" />
+        </g>
+
+        <!-- Sag Ic Lale -->
+        <g class="flower-head f5">
+          <path d="M157 88 C136 88, 134 124, 157 130 C180 124, 178 88, 157 88 Z" fill="#ff8fab" />
+          <path d="M157 94 C147 98, 146 122, 157 130 C168 122, 167 98, 157 94 Z" fill="#ffb3c6" />
+        </g>
+
+        <!-- Orta Ana Lale -->
+        <g class="flower-head">
+          <path d="M130 44 C104 44, 102 86, 130 94 C158 86, 156 44, 130 44 Z" fill="#ff477e" />
+          <path d="M130 51 C117 56, 116 84, 130 94 C144 84, 143 56, 130 51 Z" fill="#ff758f" />
+        </g>
+
+        <!-- Buket Kagidi -->
+        <polygon points="88,186 172,186 153,276 107,276" fill="#fff0f5" />
+        <polygon points="88,186 112,186 122,276 107,276" fill="#ffd6e7" />
+        <polygon points="172,186 148,186 138,276 153,276" fill="#ffc2d9" />
+
+        <!-- Kurdele -->
+        <path d="M103 206 Q130 218 157 206" stroke="#e05780" stroke-width="7" stroke-linecap="round" fill="none" />
+        <path d="M126 211 L114 236" stroke="#e05780" stroke-width="6" stroke-linecap="round" />
+        <path d="M134 211 L146 236" stroke="#e05780" stroke-width="6" stroke-linecap="round" />
+        <circle cx="130" cy="211" r="6" fill="#ff477e" />
+      </svg>
+    </div>
+
+    <div class="message">Senin için kodlandı 🌷</div>
+    <div class="hint">Ekrana dokunarak çiçek &amp; kalp yağdır</div>
+  </div>
+
+  <script>
+    const bouquet = document.getElementById("bouquet");
+    const icons = ["🌷", "🌸", "💖", "✨", "🌹"];
+
+    function spawnBurst(x, y) {
+      bouquet.classList.remove("boost");
+      void bouquet.offsetWidth;
+      bouquet.classList.add("boost");
+
+      for (let i = 0; i < 6; i++) {
+        const el = document.createElement("span");
+        el.className = "floating-item";
+        el.textContent = icons[Math.floor(Math.random() * icons.length)];
+        const dx = (Math.random() * 140 - 70).toFixed(0) + "px";
+        const rot = (Math.random() * 60 - 30).toFixed(0) + "deg";
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.style.setProperty("--dx", dx);
+        el.style.setProperty("--rot", rot);
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1250);
+      }
+    }
+
+    document.addEventListener("pointerdown", (e) => {
+      spawnBurst(e.clientX, e.clientY);
+    });
+  </script>
+</body>
+</html>
